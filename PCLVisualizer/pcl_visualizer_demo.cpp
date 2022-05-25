@@ -60,6 +60,7 @@ pcl::visualization::PCLVisualizer::Ptr rgbVis (pcl::PointCloud<pcl::PointXYZRGB>
   // --------------------------------------------
   pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
+  //display custom data - RGB by handler
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
   viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
   viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud");
@@ -76,6 +77,7 @@ pcl::visualization::PCLVisualizer::Ptr customColourVis (pcl::PointCloud<pcl::Poi
   // --------------------------------------------
   pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
+  //setting a custom colour handler
   pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color(cloud, 0, 255, 0);
   viewer->addPointCloud<pcl::PointXYZ> (cloud, single_color, "sample cloud");
   viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud");
@@ -96,6 +98,7 @@ pcl::visualization::PCLVisualizer::Ptr normalsVis (
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
   viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
   viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud");
+  //normals法线, principal curvatures主曲率, geometries几何形状
   viewer->addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal> (cloud, normals, 10, 0.05, "normals");
   viewer->addCoordinateSystem (1.0);
   viewer->initCameraParameters ();
@@ -119,6 +122,7 @@ pcl::visualization::PCLVisualizer::Ptr shapesVis (pcl::PointCloud<pcl::PointXYZR
   //------------------------------------
   //-----Add shapes at cloud points-----
   //------------------------------------
+  //showing correspondences between point clouds
   viewer->addLine<pcl::PointXYZRGB> ((*cloud)[0],
                                      (*cloud)[cloud->size() - 1], "line");
   viewer->addSphere ((*cloud)[0], 0.2, 0.5, 0.5, 0.0, "sphere");
@@ -132,6 +136,7 @@ pcl::visualization::PCLVisualizer::Ptr shapesVis (pcl::PointCloud<pcl::PointXYZR
   coeffs.values.push_back (1.0);
   coeffs.values.push_back (0.0);
   viewer->addPlane (coeffs, "plane");
+
   coeffs.values.clear ();
   coeffs.values.push_back (0.3);
   coeffs.values.push_back (0.3);
